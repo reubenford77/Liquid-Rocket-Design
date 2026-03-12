@@ -71,7 +71,7 @@ def engine_summary(
     ----------
     thrust_target : float – desired thrust [N]
     chamber_pressure : float – P_c [Pa]
-    propellant_key : str – e.g. "LOX/RP-1"
+    propellant_key : str – e.g. "N2O/ETHANOL"
     ambient_pressure : float – [Pa] (sea level default)
     burn_time : float – [s]
     contraction_ratio : float – A_c / A_t

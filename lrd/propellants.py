@@ -1,50 +1,21 @@
-"""Propellant combination data from standard references (Sutton, Humble).
+"""Propellant combination data.
 
-Values are representative at typical chamber pressures (~2-7 MPa).
-For higher fidelity, use NASA CEA.
+Values are placeholders — update with real data or NASA CEA results.
+All units are SI (metric).
 """
 
-# Each entry: c_star (m/s), gamma, T_c (K), of_ratio, mol_weight (kg/kmol)
+# Each entry: c_star (m/s), gamma, T_c (K), of_ratio, mol_weight (kg/kmol),
+#             ox_density (kg/m^3), fuel_density (kg/m^3)
 _PROPELLANTS = {
-    "LOX/RP-1": {
-        "name": "LOX / RP-1 (Kerosene)",
-        "c_star": 1774,       # m/s
-        "gamma": 1.24,
-        "T_c": 3571,          # K
-        "of_ratio": 2.56,     # O/F by mass
-        "mol_weight": 23.3,   # kg/kmol
-        "ox_density": 1141,   # kg/m^3 (LOX)
-        "fuel_density": 820,  # kg/m^3 (RP-1)
-    },
-    "LOX/LCH4": {
-        "name": "LOX / Liquid Methane",
-        "c_star": 1835,
-        "gamma": 1.20,
-        "T_c": 3526,
-        "of_ratio": 3.20,
-        "mol_weight": 21.4,
-        "ox_density": 1141,
-        "fuel_density": 422,
-    },
-    "LOX/LH2": {
-        "name": "LOX / Liquid Hydrogen",
-        "c_star": 2386,
-        "gamma": 1.26,
-        "T_c": 3250,
-        "of_ratio": 5.00,
-        "mol_weight": 10.0,
-        "ox_density": 1141,
-        "fuel_density": 71,
-    },
-    "N2O4/MMH": {
-        "name": "NTO / Monomethylhydrazine",
-        "c_star": 1724,
-        "gamma": 1.25,
-        "T_c": 3200,
-        "of_ratio": 2.15,
-        "mol_weight": 22.0,
-        "ox_density": 1440,
-        "fuel_density": 878,
+    "N2O/ETHANOL": {
+        "name": "N2O / Ethanol",
+        "c_star": 0,          # m/s  — TODO: fill in
+        "gamma": 0,           # — TODO: fill in
+        "T_c": 0,             # K    — TODO: fill in
+        "of_ratio": 0,        # O/F by mass — TODO: fill in
+        "mol_weight": 0,      # kg/kmol — TODO: fill in
+        "ox_density": 1220,   # kg/m^3 (liquid N2O at ~20°C, self-pressurising)
+        "fuel_density": 789,  # kg/m^3 (ethanol)
     },
 }
 
@@ -60,7 +31,7 @@ def get_propellant(name):
     Parameters
     ----------
     name : str
-        Key like "LOX/RP-1", "LOX/LCH4", "LOX/LH2", "N2O4/MMH".
+        Key like "N2O/ETHANOL".
 
     Returns
     -------

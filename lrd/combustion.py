@@ -69,10 +69,7 @@ def l_star_typical(propellant_key):
     float – L* [m]
     """
     values = {
-        "LOX/RP-1": 1.02,    # ~40 inches
-        "LOX/LCH4": 1.02,
-        "LOX/LH2": 0.76,     # ~30 inches
-        "N2O4/MMH": 0.89,    # ~35 inches
+        "N2O/ETHANOL": 1.0,  # m — TODO: refine with test data
     }
     key = propellant_key.upper().replace(" ", "")
     if key not in values:
