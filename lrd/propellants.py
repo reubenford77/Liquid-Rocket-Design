@@ -9,11 +9,11 @@ All units are SI (metric).
 _PROPELLANTS = {
     "N2O/ETHANOL": {
         "name": "N2O / Ethanol",
-        "c_star": 0,          # m/s  — TODO: fill in
-        "gamma": 0,           # — TODO: fill in
-        "T_c": 0,             # K    — TODO: fill in
-        "of_ratio": 0,        # O/F by mass — TODO: fill in
-        "mol_weight": 0,      # kg/kmol — TODO: fill in
+        "c_star": 1419.0,          # m/s  
+        "gamma": 1.198,          
+        "T_c": 2662.6,             # K   
+        "of_ratio": 4.5,        # O/F by mass
+        "mol_weight": 26.01,      # kg/kmol
         "ox_density": 1220,   # kg/m^3 (liquid N2O at ~20°C, self-pressurising)
         "fuel_density": 789,  # kg/m^3 (ethanol)
     },
