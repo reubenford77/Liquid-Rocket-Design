@@ -197,7 +197,8 @@ def nozzle_contour(throat_radius, expansion_ratio, half_angle_deg=15.0, n_points
 
 def full_nozzle_contour(throat_radius, expansion_ratio, contraction_ratio,
                         half_angle_deg=15.0, conv_half_angle_deg=30.0,
-                        chamber_length=None, n_points=200):
+                        chamber_length=None, chamber_radius=None,
+                        n_points=200):
     """Full engine contour from injector to nozzle exit.
 
     Returns x=0 at the injector end, with chamber, convergent cone,
@@ -219,7 +220,10 @@ def full_nozzle_contour(throat_radius, expansion_ratio, contraction_ratio,
     dict with 'x' (array [m]), 'r' (array [m]), 'throat_index' (int)
     """
     r_t = throat_radius
-    r_c = r_t * math.sqrt(contraction_ratio)
+    if chamber_radius is not None:
+        r_c = chamber_radius
+    else:
+        r_c = r_t * math.sqrt(contraction_ratio)
     r_e = r_t * math.sqrt(expansion_ratio)
 
     if chamber_length is None:

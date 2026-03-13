@@ -60,6 +60,7 @@ def engine_summary(
     ambient_pressure=101325.0,
     burn_time=30.0,
     contraction_ratio=3.0,
+    chamber_diameter=None,
     injector_dp_fraction=0.20,
     cd_injector=0.7,
     orifice_diameter_ox=0.002,
@@ -113,7 +114,7 @@ def engine_summary(
     # Chamber
     l_star = combustion.l_star_typical(propellant_key)
     Vc = combustion.chamber_volume(At, l_star)
-    chamber = combustion.chamber_dimensions(Vc, contraction_ratio, At)
+    chamber = combustion.chamber_dimensions(Vc, contraction_ratio, At, chamber_diameter=chamber_diameter)
 
     # Injector
     dp_inj = injector_dp_fraction * chamber_pressure
@@ -148,6 +149,7 @@ def engine_summary(
         "exit_diameter": de,
         "l_star": l_star,
         "chamber_volume": Vc,
+        "contraction_ratio": chamber["contraction_ratio"],
         "chamber_diameter": chamber["diameter"],
         "chamber_length": chamber["length"],
         "injector_dp": dp_inj,

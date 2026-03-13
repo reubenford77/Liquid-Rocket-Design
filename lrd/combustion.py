@@ -1,6 +1,7 @@
 """Combustion chamber sizing functions."""
 
 import math
+import warnings
 
 
 def chamber_volume(throat_area, l_star):
@@ -20,23 +21,44 @@ def chamber_volume(throat_area, l_star):
     return throat_area * l_star
 
 
-def chamber_dimensions(volume, contraction_ratio, throat_area):
+def chamber_dimensions(volume, contraction_ratio, throat_area, chamber_diameter=None):
     """Chamber diameter and cylindrical length from volume and geometry.
 
     Parameters
     ----------
     volume : float – chamber volume [m^3]
-    contraction_ratio : float – A_c / A_t (typically 2–5)
+    contraction_ratio : float – A_c / A_t (typically 2–5), used when
+        chamber_diameter is not provided.
     throat_area : float – [m^2]
+    chamber_diameter : float or None – override chamber diameter [m].
+        When provided, contraction_ratio is back-calculated.
 
     Returns
     -------
-    dict with keys: diameter [m], length [m], area [m^2]
+    dict with keys: diameter [m], length [m], area [m^2], contraction_ratio
     """
-    Ac = throat_area * contraction_ratio
-    dc = math.sqrt(4 * Ac / math.pi)
+    if chamber_diameter is not None:
+        Ac = math.pi / 4 * chamber_diameter ** 2
+        dc = chamber_diameter
+        if Ac < throat_area:
+            raise ValueError(
+                f"Chamber diameter {chamber_diameter} m gives chamber area "
+                f"{Ac:.6f} m^2, which is smaller than throat area "
+                f"{throat_area:.6f} m^2."
+            )
+        if contraction_ratio is not None:
+            actual_cr = Ac / throat_area
+            warnings.warn(
+                f"Both chamber_diameter and contraction_ratio provided. "
+                f"Using chamber_diameter={chamber_diameter:.4f} m "
+                f"(implied CR={actual_cr:.2f})."
+            )
+    else:
+        Ac = throat_area * contraction_ratio
+        dc = math.sqrt(4 * Ac / math.pi)
+
     Lc = volume / Ac
-    return {"diameter": dc, "length": Lc, "area": Ac}
+    return {"diameter": dc, "length": Lc, "area": Ac, "contraction_ratio": Ac / throat_area}
 
 
 def stay_time(l_star, c_star, chamber_pressure, combustion_temp, mol_weight):
